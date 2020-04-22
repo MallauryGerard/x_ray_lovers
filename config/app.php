@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        'BenSampo\Enum\EnumServiceProvider',
 
         /*
          * Application Service Providers...
