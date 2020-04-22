@@ -2,9 +2,12 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\User;
+use App\Appointment;
+use App\Patient;
+use App\Hospital;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
+use App\Enums\Urgency;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +20,13 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(Appointment::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'scheduled_date' => $faker->dateTimeThisMonth(),
+        'urgency' => $faker->randomElement([Urgency::Low, Urgency::Medium, Urgency::Hight]),
+        'comment' => $faker->randomElement([null, $faker->text]),
+        'exam_id' => rand(1,3),
+        'patient_id' => rand(1,200),
+        'hospital_id' => rand(1,3)
     ];
 });
