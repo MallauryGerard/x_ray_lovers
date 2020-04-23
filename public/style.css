@@ -8,3 +8,11 @@
 .faible{
     background-color: #28a745!important;
 }
+#flash-message{
+    position: fixed;
+    top: 20px;
+    width: 200px;
+}
+.lessOpacity{
+    opacity: 0.4;
+}
