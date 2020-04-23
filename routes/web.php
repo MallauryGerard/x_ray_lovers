@@ -20,6 +20,8 @@ Route::get('/', function () {
 // Ajax
 Route::get('/fetchLastname', 'PatientController@fetchLastname')->name('fetchLastname');
 Route::get('/fetchFirstname', 'PatientController@fetchFirstname')->name('fetchFirstname');
+Route::get('/ajaxPatientAlreadyExist', 'PatientController@ajaxPatientAlreadyExist')
+        ->name('ajaxPatientAlreadyExist');
 
 // Appointments
 Route::get('/appointments', 'AppointmentController@index')->name('appointment.index');
