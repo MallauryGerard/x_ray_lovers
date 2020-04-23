@@ -36,6 +36,8 @@
             </span>
             @enderror
         </div>
+        <div id="doesPatientAlreadyExist" class="col-md-12">
+        </div>
         <div class="col-lg-2">
             <label for="gender">Genre: <span class="text-danger"> *</span></label>
             <select class="form-control form-control @error('gender') is-invalid @enderror" id="gender" name="gender" required>
@@ -70,5 +72,27 @@
     </div>
     <button type="submit" class="btn btn-primary btn-rounded waves-effect mt-5 float-right">Ajouter</button>
 </form>
+
+<script>
+    $('input').blur(function () {
+        if ($('#lastname').val != '' && $('#firstname').val != '' && $('#birthdate').val != '') {
+            var lastname = $('#lastname').val();
+            var firstname = $('#firstname').val();
+            var birthdate = $('#birthdate').val();
+            $.ajax({
+                url: "/ajaxPatientAlreadyExist",
+                method: "GET",
+                data: {
+                    lastname: lastname,
+                    firstname: firstname,
+                    birthdate: birthdate
+                },
+                success: function (result) {
+                    $('#doesPatientAlreadyExist').html(result);
+                }
+            })
+        }
+    });
+</script>
 
 @endsection
