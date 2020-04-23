@@ -28,7 +28,7 @@ class PatientController extends Controller {
             'email' => ['nullable', 'email', 'unique:patients,email']
         ]);
 
-        if ($this->doesPatientExist($request->firstname, $request->lastname, $request->birthdate)) {
+        if ($this->getPatientFrom($request->firstname, $request->lastname, $request->birthdate)) {
             session()->flash('error', 'Le patient existe déjà');
             return redirect()->back();
         }
@@ -46,15 +46,6 @@ class PatientController extends Controller {
 
         session()->flash('success', 'Patient ajouté avec succès');
         return redirect()->route('patient.show', ['patient' => $patient->id]);
-    }
-
-    private function doesPatientExist(string $firstname, string $lastname, string $birthdate) {
-        $birthdate = new DateTime($birthdate);
-        return Patient::where([
-                    'firstname' => $firstname,
-                    'lastname' => $lastname,
-                    'birthdate' => $birthdate->format('y-m-d')
-                ])->exists();
     }
 
     public function fetchLastname(Request $request) {
@@ -85,6 +76,26 @@ class PatientController extends Controller {
             $output .= '<option value="' . $firstname->firstname . '">' . $firstname->firstname . '</option>';
         }
         echo $output;
+    }
+    
+    public function ajaxPatientAlreadyExist(Request $request){
+        if (!$request->ajax()) {
+            abort(404);
+        }
+        $patient = $this->getPatientFrom($request->firstname, $request->lastname, $request->birthdate);
+        if($patient){
+            echo '<p class="text-danger">Le patient est déjà enregistré ! '
+            . '<a href="'.route('patient.show', ['patient' => $patient->id]).'">Accéder à sa fiche</a></p>';
+        }
+    }
+    
+    private function getPatientFrom(string $firstname, string $lastname, string $birthdate) {
+        $birthdate = new DateTime($birthdate);
+        return Patient::where([
+                    'firstname' => $firstname,
+                    'lastname' => $lastname,
+                    'birthdate' => $birthdate->format('y-m-d')
+                ])->first();
     }
 
 }
