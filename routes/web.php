@@ -22,6 +22,8 @@ Route::get('/fetchLastname', 'PatientController@fetchLastname')->name('fetchLast
 Route::get('/fetchFirstname', 'PatientController@fetchFirstname')->name('fetchFirstname');
 Route::get('/ajaxPatientAlreadyExist', 'PatientController@ajaxPatientAlreadyExist')
         ->name('ajaxPatientAlreadyExist');
+Route::get('/ajaxFindAFreeSlot', 'AppointmentController@ajaxFindAFreeSlot');
+
 
 // Appointments
 Route::get('/appointments', 'AppointmentController@index')->name('appointment.index');
