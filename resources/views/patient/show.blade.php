@@ -3,15 +3,34 @@
 @section('content')
 
 <h2 class="my-4">Informations du patient</h2>
-
-<p><b>Prénom:</b> {{ $patient->firstname }}</p>
-<p><b>Nom de famille:</b> {{ $patient->lastname }}</p>
-<p><b>Sexe:</b> {{ $patient->gender }}</p>
-<p><b>Date de naissance:</b> {{ $patient->formatDateReadable() . " (" . $patient->getAge() . ")" }}</p>
-<p><b>Téléphone:</b> {{ $patient->phone_number }}</p>
-@if($patient->email)
-<p><b>Email:</b> {{ $patient->email }}</p>
-@endif
+<table class="table">
+    <tr>
+        <td>Prénom</td>
+        <td>{{ $patient->firstname }}</td>
+    </tr>
+    <tr>
+        <td>Nom de famille</td>
+        <td>{{ $patient->lastname }}</td>
+    </tr>
+    <tr>
+        <td>Sexe</td>
+        <td>{{ $patient->gender }}</td>
+    </tr>
+    <tr>
+        <td>Date de naissance</td>
+        <td>{{ $patient->formatDateReadable() . " (" . $patient->getAge() . ")" }}</td>
+    </tr>
+    <tr>
+        <td>Téléphone</td>
+        <td>{{ $patient->phone_number }}</td>
+    </tr>
+    @if($patient->email)
+    <tr>
+        <td>Email</td>
+        <td>{{ $patient->email }}</td>
+    </tr>
+    @endif
+</table>
 
 @if($patient->appointments->first())
 <h3 class="my-4">Rendez-vous du patient</h3>
@@ -28,7 +47,7 @@
     <tbody>
         @foreach($patient->appointments as $appointment)
         <tr class="{{ ($appointment->isAlreadyPassed()) ? 'lessOpacity' : '' }}">
-            <th scope="row">{{ $appointment->formatDateReadable() }}</th>
+            <td>{{ $appointment->formatDateReadable() }}</td>
             <td><span class="badge badge-primary {{ $appointment->urgency }}">{{ $appointment->urgency }}</span></td>
             <td>{{ $appointment->exam->name }}</td>
             <td>{{ $appointment->hospital->name }}</td>

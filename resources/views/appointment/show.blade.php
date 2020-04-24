@@ -10,19 +10,39 @@
     </span>
     @endif
 </h2>
-<p><b>Urgence:</b> <span class="badge badge-primary {{ $appointment->urgency }}">{{ $appointment->urgency }}</span></p>
-<p><b>Type:</b> {{ $appointment->exam->name }}</p>
-<p><b>Hopital:</b> {{ $appointment->hospital->name . ' (' . $appointment->hospital->summary . ')' }}</p>
-<p>
-    <b>Patient:</b> 
-    <a href="{{ route('patient.show', ['patient' => $appointment->patient]) }}">
-        {{ $appointment->patient->firstname . ' ' . $appointment->patient->lastname }}
-    </a>
-</p>
-@if($appointment->comment)
-<p class="card-text"><b>Commentaire:</b> {{ $appointment->comment }}</p>
-@endif
-<button class="btn btn-danger float-right" data-toggle="modal" data-target="#deleteAppointment">
+<table class="table informations">
+    <tr>
+        <td>Urgence</td>
+        <td>
+            <span class="badge badge-primary {{ $appointment->urgency }}">{{ $appointment->urgency }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td>Type</td>
+        <td>{{ $appointment->exam->name }}</td>
+    </tr>
+    <tr>
+        <td>Hopital</td>
+        <td>{{ $appointment->hospital->name . ' (' . $appointment->hospital->summary . ')' }}</td>
+    </tr>
+    <tr>
+        <td>Patient</td>
+        <td>
+            <a href="{{ route('patient.show', ['patient' => $appointment->patient]) }}">
+                {{ $appointment->patient->firstname . ' ' . $appointment->patient->lastname }}
+            </a>
+        </td>
+    </tr>
+    @if($appointment->comment)
+    <tr>
+        <td>Commentaire</td>
+        <td>
+            {{ $appointment->comment }}
+        </td>
+    </tr>
+    @endif
+</table>
+<button class="btn-sm btn-danger float-right" data-toggle="modal" data-target="#deleteAppointment">
     Supprimer
 </button>
 

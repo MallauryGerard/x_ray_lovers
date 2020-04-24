@@ -39,7 +39,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="container my-5">
+        <div class="container my-5 pb-5">
             @include('includes.flashMessage')
             @yield('content')
         </div>
