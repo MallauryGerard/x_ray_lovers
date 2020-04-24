@@ -23,7 +23,7 @@ class Slot extends Model
         foreach($slots as $slot){
             if(!Appointment::where(['scheduled_date' => $date, 'slot_id' => $slot->id])->exists()){
                 $dateFormat = Carbon::createFromFormat('Y-m-d H:i:s', $date . " " . $slot->start, "Europe/Brussels")->format('d/m/yy à H:i');
-                return ['date' => $date, 'slot_id' => $slot->id, 'readableDate' => "Première date libre: le " . $dateFormat];
+                return ['date' => $date, 'slot_id' => $slot->id, 'readableDate' => "Première date libre: le <b>" . $dateFormat . "</b>"];
             }
         }
     } 

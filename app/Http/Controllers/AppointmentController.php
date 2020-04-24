@@ -100,27 +100,34 @@ class AppointmentController extends Controller {
         $freeSlot = null;
         $count = 1;
         $nbSecuritySlots = 0;
-        $stop = false;
-        while($count < self::MAX_DELAY_FOR_AN_APPOINTMENT && !$stop){
-            $date = Carbon::today()->addDay($count);
+        $found = false;
+        while($count < self::MAX_DELAY_FOR_AN_APPOINTMENT && !$found){
+            if($request->currentDate){ // if currentDate is not null -> the user asked for a new date
+                $currentDate = Carbon::createFromFormat('Y-m-d', $request->currentDate);
+            }else{
+                $currentDate = Carbon::today();
+            }
+            $date = $currentDate->addDay($count);
             if(!$date->isSunday() && !$date->isSaturday()){ // Dodge non-working day
                 $freeSlot = Slot::firstFreeSlotOfDate($date->format('Y-m-d'), $urgency);
             }
             if($freeSlot){
                 $nbSecuritySlots++;
-                if($urgency == Urgency::Hight ||
+                if($request->currentDate || $urgency == Urgency::Hight ||
                    ($urgency == Urgency::Medium && $nbSecuritySlots >= self::NB_FREE_SECURITY_SLOT_FOR_MEDIUM_URGENCY) ||
                     ($urgency == Urgency::Low && $nbSecuritySlots >= self::NB_FREE_SECURITY_SLOT_FOR_LOW_URGENCY)){
-                    echo '<div class="alert alert-success" role="alert">'.$freeSlot['readableDate'].'</div>';
+                    echo '<div class="alert alert-success" role="alert">'.$freeSlot['readableDate'].'. '
+                            . '<br><i>Cette date ne convient pas ?</i> '
+                            . '<button type="button" class="btn btn-sm btn-primary" id="newDate">Trouver une date ultérieure</button></div>';
                     echo '<input id="slot" name="slot" type="hidden" value="'.$freeSlot['slot_id'].'">';
                     echo '<input id="date" name="date" type="hidden" value="'.$freeSlot['date'].'">';
-                    $stop = true;
+                    $found = true;
                 }
             }
             $count++;
         }
         if($count >= self::MAX_DELAY_FOR_AN_APPOINTMENT){
-            echo '<div class="alert alert-danger" role="alert">Désolé, aucune disponibilité n\'a été trouvée avant plus d\'un an.</div>';
+            echo '<div class="alert alert-danger" role="alert">Désolé, aucune disponibilité n\'a été trouvée.</div>';
         }
     }
 }

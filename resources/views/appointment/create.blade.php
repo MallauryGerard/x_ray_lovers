@@ -63,15 +63,15 @@
             <textarea id="comment" name="comment" class="form-control" rows="2">{{ old('comment') }}</textarea>
         </div>
     </div>
-    
-<button type="submit" class="btn btn-primary btn-rounded waves-effect mt-5 float-right">Partager</button>
+
+    <button type="submit" class="btn btn-primary btn-rounded waves-effect mt-5 float-right">Ajouter</button>
 </form>
 
 <script>
 // Generate lastnames which matchs with the birthdate
     $(document).ready(function () {
         $('#birthdate').change(function () {
-            if ($('#birthdate').val != '') {
+            if ($('#birthdate').val !== '') {
                 var value = $(this).val();
                 $.ajax({
                     url: "/fetchLastname",
@@ -84,7 +84,7 @@
             }
         });
         $('#lastname').change(function () {
-            if ($('#lastname').val != '') {
+            if ($('#lastname').val !== '') {
                 var value = $(this).val();
                 $.ajax({
                     url: "/fetchFirstname",
@@ -97,12 +97,30 @@
             }
         });
         $('#urgency').change(function () {
-            if ($('#urgency').val != '') {
+            if ($('#urgency').val !== '') {
                 var value = $(this).val();
                 $.ajax({
                     url: "/ajaxFindAFreeSlot",
                     method: "GET",
                     data: {urgency: value},
+                    success: function (result) {
+                        $('#firstFreeSlot').html(result);
+                    }
+                })
+            }
+        });
+        $(document).on("click", '#newDate', function() { 
+            console.log('click pris en compte');
+            if ($('#urgency').val !== '') {
+                var valueUrgency = $("#urgency").val();
+                var valueDate = $("#date").val();
+                $.ajax({
+                    url: "/ajaxFindAFreeSlot",
+                    method: "GET",
+                    data: {
+                        urgency: valueUrgency,
+                        currentDate: valueDate
+                    },
                     success: function (result) {
                         $('#firstFreeSlot').html(result);
                     }
