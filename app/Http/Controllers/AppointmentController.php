@@ -35,8 +35,8 @@ class AppointmentController extends Controller
         $cpt = 0;
         foreach($appointments as $appointment){
             $dataCalendar[$cpt]["title"] = $appointment->exam->name . ' - ' . $appointment->hospital->summary;
-            $dataCalendar[$cpt]["start"] = $appointment->scheduled_date;
-            $dataCalendar[$cpt]["end"] = $appointment->getEndDate();
+            $dataCalendar[$cpt]["start"] = $appointment->getStartDatetime();
+            $dataCalendar[$cpt]["end"] = $appointment->getEndDatetime();
             $dataCalendar[$cpt]["url"] = route('appointment.show', ['appointment' => $appointment->id]);
             $dataCalendar[$cpt]["classNames"] = $appointment->urgency;
             $dataCalendar[$cpt]["description"] = $appointment->comment . " " .

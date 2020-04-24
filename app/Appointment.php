@@ -9,10 +9,6 @@ class Appointment extends Model {
 
     public $timestamps = true;
     protected $fillable = ['*'];
-    // Cast to a "Carbon" DateTime
-    protected $casts = [
-        'scheduled_date' => 'datetime',
-    ];
 
     /*
      * Relations
@@ -29,23 +25,27 @@ class Appointment extends Model {
         return $this->belongsTo(Hospital::class);
     }
     
+    public function slot(){
+        return $this->belongsTo(Slot::class);
+    }
+    
     /*
      * Usefull methods
      */
-    public static function getTodayAppointments() {
-        return Appointment::whereDate('scheduled_date', Carbon::today())->orderBy('scheduled_date', 'asc')->get();
+    public function getStartDatetime(){
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->scheduled_date . " " . $this->slot->start, "Europe/Brussels");
     }
 
-    public function getEndDate() {
-        return $this->scheduled_date->addMinutes($this->exam->duration); // End date -> We just add duration to start date
+    public function getEndDatetime() {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->scheduled_date . " " . $this->slot->end, "Europe/Brussels");
     }
 
     public function formatDateReadable() {
-        return $this->scheduled_date->format('d/m/yy à H:i');
+        return $this->getStartDatetime()->format('d/m/yy à H:i');
     }
     
     public function isAlreadyPassed() {
-        return $this->scheduled_date->isPast();
+        return $this->getEndDatetime()->isPast();
     }
 
 }
