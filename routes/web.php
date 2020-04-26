@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect(route('appointment.index'));
+    return redirect(route('appointment.indexAgenda'));
 });
 
 // Ajax
@@ -27,6 +27,7 @@ Route::get('/ajaxFindAFreeSlot', 'AppointmentController@ajaxFindAFreeSlot');
 
 // Appointments
 Route::get('/appointments', 'AppointmentController@index')->name('appointment.index');
+Route::get('/appointments/agenda', 'AppointmentController@indexAgenda')->name('appointment.indexAgenda');
 Route::get('/appointments/create', 'AppointmentController@create')->name('appointment.create');
 Route::get('/appointments/{appointment}', 'AppointmentController@show')->name('appointment.show');
 Route::delete('/appointments/{appointment}', 'AppointmentController@destroy')->name('appointment.destroy');

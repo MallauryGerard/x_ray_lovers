@@ -33,8 +33,6 @@ class PatientController extends Controller {
             return redirect()->back();
         }
 
-        // Test si le patient existe déjà
-
         $patient = new Patient();
         $patient->firstname = $request->firstname;
         $patient->lastname = $request->lastname;
