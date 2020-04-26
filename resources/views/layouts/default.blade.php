@@ -27,14 +27,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Agenda</a>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="{{ route('patient.create') }}">
+                            <i class="fas fa-user-plus"></i> Ajouter un patient
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('appointment.create') }}">Ajouter un rendez-vous</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('patient.create') }}">Ajouter un patient</a>
+                    <li class="nav-item dropdown mx-2">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Rendez-vous
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item py-2" href="{{ route('appointment.indexAgenda') }}">
+                                <i class="far fa-calendar-alt"></i> Agenda des rendez-vous
+                            </a>
+                            <a class="dropdown-item py-2" href="{{ route('appointment.create') }}">
+                                <i class="fas fa-plus"></i> Ajouter un rendez-vous
+                            </a>
+                            <a class="dropdown-item py-2" href="{{ route('appointment.index') }}">
+                                <i class="fas fa-search"></i> Rechercher un rendez-vous
+                            </a>
+                        </div>
                     </li>
                 </ul>
             </div>
