@@ -1,3 +1,6 @@
+html, body{
+    font-family: 'Montserrat', sans-serif!important;
+}
 /* Custom */
 .élevée{
     background-color: #dc3545!important;
@@ -15,4 +18,15 @@
 }
 .lessOpacity{
     opacity: 0.4;
+}
+.table tr:nth-child(even){
+    background-color: #f8f9fa;
+}
+.table td:first-child{
+    font-weight: bold;
+}
+.fc-time-grid-event .fc-title{
+    position: relative;
+    top: -15px;
+    left: 80px;
 }

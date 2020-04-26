@@ -22,6 +22,7 @@ window.onload = () => {
         nowIndicator: true,
         minTime: "07:30:00",
         maxTime: "17:30:00",
+        navLinks: true,
         handleWindowResize: true,
         events: appointments,
         eventRender: function (info) {
