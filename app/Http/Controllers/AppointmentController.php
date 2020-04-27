@@ -24,9 +24,7 @@ class AppointmentController extends Controller {
      */
     public function index(Request $request, ModelFilters $modelFilters) {
         if (!empty($modelFilters->filters())) {
-            $perpage = $request->perpage;
-            $request->offsetUnset('perpage');
-            $appointments = Appointment::filter($modelFilters)->with('patient')->orderBy('scheduled_date', 'desc')->paginate($perpage, ['*'], 'page');
+            $appointments = Appointment::filter($modelFilters)->with('patient')->orderBy('scheduled_date', 'desc')->paginate(15, ['*'], 'page');
         } else {
             $appointments = Appointment::with('patient')->orderBy('scheduled_date', 'desc')->paginate(15);
         }
