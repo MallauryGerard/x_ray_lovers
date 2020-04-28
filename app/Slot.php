@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\Appointment;
-use App\Enums\Urgency;
 
 class Slot extends Model
 {
@@ -19,7 +18,6 @@ class Slot extends Model
     
     public static function firstFreeSlotOfDate(string $date, string $urgency){
         $slots = self::all();
-        $nbSlots = 0;
         foreach($slots as $slot){
             if(!Appointment::where(['scheduled_date' => $date, 'slot_id' => $slot->id])->exists()){
                 $dateFormat = Carbon::createFromFormat('Y-m-d H:i:s', $date . " " . $slot->start, "Europe/Brussels")->format('d/m/yy à H:i');
