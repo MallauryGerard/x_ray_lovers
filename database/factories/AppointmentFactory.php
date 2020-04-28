@@ -22,11 +22,13 @@ use App\Enums\Urgency;
 
 $factory->define(Appointment::class, function (Faker $faker) {
     return [
-        'scheduled_date' => $faker->dateTimeThisMonth(),
+        //'scheduled_date' => $faker->dateTimeBetween('+0 days', '+2 days'),
+        'scheduled_date' => "2020-04-27",
         'urgency' => $faker->randomElement([Urgency::Low, Urgency::Medium, Urgency::Hight]),
         'comment' => $faker->randomElement([null, $faker->text]),
         'exam_id' => rand(1,3),
         'patient_id' => rand(1,200),
-        'hospital_id' => rand(1,3)
+        'hospital_id' => rand(1,3),
+        'slot_id' => rand(1,26)
     ];
 });
