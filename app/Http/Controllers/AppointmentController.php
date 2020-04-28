@@ -5,13 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
-use App\Appointment;
-use App\Exam;
-use App\Patient;
+use App\{Appointment, Exam, Patient, Slot, Hospital};
 use App\Enums\Urgency;
 use Carbon\Carbon;
-use App\Slot;
-use App\Hospital;
 
 class AppointmentController extends Controller {
 
