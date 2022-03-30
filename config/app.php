@@ -166,7 +166,8 @@ return [
          * Package Service Providers...
          */
         'BenSampo\Enum\EnumServiceProvider',
-
+		\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
+		
         /*
          * Application Service Providers...
          */
